@@ -5,7 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class QuestionThreeTest {
+import common.TestBase;
+
+public class QuestionThreeTest extends TestBase {
 
     private static final double EPSILON = 0.000001;
 

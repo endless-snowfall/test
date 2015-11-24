@@ -11,8 +11,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import common.TestBase;
+
 @RunWith(MockitoJUnitRunner.class)
-public class QuestionFourTest {
+public class QuestionFourTest extends TestBase {
 
     private static final String KEY = "anthonylikesicecream";
 
