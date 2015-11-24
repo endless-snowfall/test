@@ -14,11 +14,11 @@ import common.TestBase;
 
 public class PathGeneratorTest extends TestBase {
 
-    private PathGenerator generator;
+    private ConcisePathGenerator generator;
 
     @Before
     public void before() {
-        generator = new PathGenerator();
+        generator = new ConcisePathGenerator();
     }
 
     @Test
