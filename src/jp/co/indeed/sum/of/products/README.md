@@ -141,14 +141,14 @@ In this case, if assigning each cell 20, 30, 10, 40, 50, 60 from the left, the m
 
 # Runtime Analysis:
 ##Definitions:
-  - 
-
-##Breakdown:
-  - 
+  - N is the length of the array or grid.
+  - A is the number of assigned numbers.
+  - U is the number of unassigned numbers.
 
 ##Overall:
-  - Space: 
-  - Time: 
+### Approach (1):
+  - Space: O(A) + O(U) + O(N)
+  - Time: O(N!)
 
 # Tags: Tricky, Permutations, Maximize, Product, Sum, Optimize
 
