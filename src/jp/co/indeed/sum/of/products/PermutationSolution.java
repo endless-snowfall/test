@@ -1,6 +1,5 @@
 package jp.co.indeed.sum.of.products;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -41,9 +40,6 @@ public class PermutationSolution {
                 }
             }
 
-            System.out.println(Arrays.toString(array));
-            System.out.println(assigned.keySet());
-
             Set<Integer> result = new HashSet<>(1);
             result.add(Integer.MIN_VALUE);
             permute(array, 0, assigned.keySet(), result);
@@ -52,19 +48,22 @@ public class PermutationSolution {
     }
 
     private static void permute(int[] array, int index, Set<Integer> assignedIndices, Set<Integer> result) {
+        if (assignedIndices.contains(index)) {
+            permute(array, index + 1, assignedIndices, result);
+        }
+
         for (int i = index; i < array.length; i++) {
             if (assignedIndices.contains(i)) {
                 continue;
             }
+
             swap(array, i, index);
             permute(array, index + 1, assignedIndices, result);
             swap(array, index, i);
         }
 
         if (index == array.length - 1) {
-            System.out.println("candidate: " + Arrays.toString(array));
             int candidate = computeSumOfProducts(array);
-            System.out.println(candidate);
             if (candidate > Iterables.getOnlyElement(result)) {
                 result.clear();
                 result.add(candidate);
