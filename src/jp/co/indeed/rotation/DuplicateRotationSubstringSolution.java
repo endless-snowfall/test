@@ -26,7 +26,7 @@ public class DuplicateRotationSubstringSolution {
         int rotationSubstringLength = R + 1 - L;
 
         // determine where the start of the rotated portion is
-        int beginIndex = K % rotationSubstringLength;
+        int beginIndex = rotationSubstringLength - (K % rotationSubstringLength);
 
         // duplicate the rotated portion
         rotationSubstring += rotationSubstring;

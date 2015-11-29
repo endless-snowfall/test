@@ -45,4 +45,12 @@ public class DuplicateRotationSubstringSolutionTest {
         DuplicateRotationSubstringSolution.main(new String[] {});
         // adbce
     }
+
+    @Test
+    public void test6() {
+        System.setIn(mockInputStream(
+            "9 abcdefghi 1 1 9 3"));
+        DuplicateRotationSubstringSolution.main(new String[] {});
+        // ghiabcdef
+    }
 }
