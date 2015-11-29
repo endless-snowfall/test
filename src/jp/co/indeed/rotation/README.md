@@ -106,5 +106,7 @@ vkidskofbk
 
 # Tags: Tricky, Test, Strings, Rotation
 
-# Notes:
-  - 
+# Notes:  - 
+  - Discovered this easter egg in Java String.substring:
+    - Throws:
+IndexOutOfBoundsException - if the beginIndex is negative, or **_endIndex is larger than the length of this String object_**, or beginIndex is larger than endIndex.
