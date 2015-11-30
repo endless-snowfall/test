@@ -100,21 +100,30 @@ The flow of the operation is the following:
     - i.e. We will initialize this map such that 0 -> 0, 1 -> 1, 2 -> 2, ..., 7 -> 7.
     - If the 3rd ball's final position is 6 then we will have the entry 2 -> 5.
   - Once we have processed all N operations and built this map, we will iterate K times and each time we will:
-    - (1) Take the previous result and build a new one from it, using the map to extract from the old result.
+    - Take the previous result and build a new one from it, using the map to extract from the old result.
   - One important optimization is to deal with extremely large values of K by considering all the possible cycle lengths and breaking K down by the LCM of them.  In this case that's K % (8 * 7 * 5 * 3).
-  
-## Approach (2): [Disjoint Cycle Form Solution]
-  -
 
+## Approach (2): [Disjoint Cycle Form Solution]
+  - This solution uses an array which initially holds the numbers 0 ... 7.
+  - Processing the N operations will perform swaps within this array.
+  - Analyzing the array, we can produce a List/Set of "disjoint cycles", represented in a List<List<Integer>.
+  - Now that we have the entire set of different disjoint cycles, we will "power" them, which is to derive/break them into possibly more disjoint cycles.
+  - This final set of disjoint cycles is bounded in size by 8, in which each position map to themselves and the original positions of balls does not change.
+  - The last step is to restore the ball values to 1-based.
+  
 # Runtime Analysis:
 ##Definitions:
   - N is the number of operations in the set.
   - K is the number of times the set is applied.
 
 ##Overall:
-### Approach(1):
+### Approach (1):
   - Space: O(K), one array created each time we apply the set of operations.
   - Time: O(N) + O(K)
+
+### Approach (2):
+  - Space: O(2K) for unpowered and powered disjoint cycles.
+  - Time: O(N) to do swaps, O(8) to build disjoint cycles, O(8) to power cycles, O(8) to apply powered cycles to result.
 
 # Tags: Tricky, Disjoint Cycle Form, Mod, Optimization, Least Common Multiple, LCM, Review
 

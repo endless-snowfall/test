@@ -15,22 +15,20 @@ public class DisjointCycleFormSolution {
     public static void main(String[] args) {
 
         try (Scanner sc = new Scanner(System.in)) {
-            int n = sc.nextInt();
-            int k = sc.nextInt();
-            int[] perm = { 0, 1, 2, 3, 4, 5, 6, 7 };
+            int N = sc.nextInt();
+            int K = sc.nextInt();
+            int[] balls = { 0, 1, 2, 3, 4, 5, 6, 7 };
 
-            for (int i = 0; i < n; i++) {
+            for (int i = 0; i < N; i++) {
                 int a = sc.nextInt();
                 int b = sc.nextInt();
-                swap(perm, a - 1, b - 1);
+                swap(balls, a - 1, b - 1);
             }
 
             // Disjoint cycle form
-            List<List<Integer>> disjointCycles = getDisjointCycles(perm);
             List<List<Integer>> disjointCyclesPowerK = new ArrayList<>();
-
-            for (List<Integer> disjointCycle : disjointCycles) {
-                disjointCyclesPowerK.addAll(power(disjointCycle, k));
+            for (List<Integer> disjointCycle : getDisjointCycles(balls)) {
+                disjointCyclesPowerK.addAll(power(disjointCycle, K));
             }
 
             // Build result
@@ -46,29 +44,30 @@ public class DisjointCycleFormSolution {
         }
     }
 
-    private static void swap(int[] perm, int a, int b) {
-        int temp = perm[a];
-        perm[a] = perm[b];
-        perm[b] = temp;
+    private static void swap(int[] array, int a, int b) {
+        int temp = array[a];
+        array[a] = array[b];
+        array[b] = temp;
     }
 
-    private static List<List<Integer>> getDisjointCycles(int[] perm) {
+    private static List<List<Integer>> getDisjointCycles(int[] balls) {
         List<List<Integer>> result = new ArrayList<>();
         Set<Integer> seen = new HashSet<>();
 
         for (int i = 0; i < 8; i++) {
-            int start = perm[i];
-            if (seen.contains(start)) {
+            // Skip over balls that already belong to an existing cycle
+            if (seen.contains(i)) {
                 continue;
             }
 
+            // Create a new cycle
             List<Integer> cycle = new ArrayList<>();
-            cycle.add(start);
-            seen.add(start);
-            int next = start;
+            cycle.add(i);
+            seen.add(i);
+            int next = i;
 
-            while (perm[next] != start) {
-                next = perm[next];
+            while (balls[next] != i) {
+                next = balls[next];
                 cycle.add(next);
                 seen.add(next);
             }
@@ -79,11 +78,12 @@ public class DisjointCycleFormSolution {
         return result;
     }
 
-    private static List<List<Integer>> power(List<Integer> disjointCycle, int k) {
+    private static List<List<Integer>> power(List<Integer> disjointCycle, int K) {
         List<List<Integer>> result = new ArrayList<>();
         int cycleLength = disjointCycle.size();
-        int power = k % cycleLength;
+        int power = K % cycleLength;
 
+        // Identity permutation
         if (power == 0) {
             for (Integer element : disjointCycle) {
                 result.add(Collections.singletonList(element));
@@ -95,8 +95,9 @@ public class DisjointCycleFormSolution {
             return Collections.singletonList(disjointCycle);
         }
 
+        // Find disjoint cycles within disjoint cycle
         Set<Integer> seen = new HashSet<>();
-        for (int i = 0; i < disjointCycle.size(); i++) {
+        for (int i = 0; i < cycleLength; i++) {
             int start = disjointCycle.get(i);
             if (seen.contains(start)) {
                 continue;
@@ -105,12 +106,12 @@ public class DisjointCycleFormSolution {
             List<Integer> cycle = new ArrayList<>();
             cycle.add(start);
             seen.add(start);
-            int index = (i + power) % disjointCycle.size();
+            int index = (i + power) % cycleLength;
 
             while (disjointCycle.get(index) != start) {
                 cycle.add(disjointCycle.get(index));
                 seen.add(disjointCycle.get(index));
-                index = (index + power) % disjointCycle.size();
+                index = (index + power) % cycleLength;
             }
 
             result.add(cycle);
