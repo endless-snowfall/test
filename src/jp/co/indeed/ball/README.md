@@ -110,7 +110,12 @@ The flow of the operation is the following:
   - Now that we have the entire set of different disjoint cycles, we will "power" them, which is to derive/break them into possibly more disjoint cycles.
   - This final set of disjoint cycles is bounded in size by 8, in which each position map to themselves and the original positions of balls does not change.
   - The last step is to restore the ball values to 1-based.
-  
+
+## Approach (3): [Concise Disjoint Cycle Form Solution]
+  - Similar to Approach (2) but instead of powering through the cycles to reduce K, we can accomplish this work by:
+    - (1) Take a disjoint cycle and determine the number of steps of progression by taking the mod of K by the length of the cycle.
+    - (2) Now for each final position in the result, we know how many steps to "look forward" in the cycle to find the final value.
+
 # Runtime Analysis:
 ##Definitions:
   - N is the number of operations in the set.
