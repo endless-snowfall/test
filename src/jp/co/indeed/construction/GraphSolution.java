@@ -44,13 +44,13 @@ public class GraphSolution {
 
             Map<Integer, Island> islands = initializeIslands(N);
 
-            for (int i = 1; i <= Q; i++) {
+            for (int date = 1; date <= Q; date++) {
                 String query = sc.next();
                 int A = sc.nextInt();
                 int B = sc.nextInt();
 
                 if ("build".equals(query)) {
-                    buildBridge(islands, A, B, i);
+                    buildBridge(islands, A, B, date);
                     continue;
                 }
 

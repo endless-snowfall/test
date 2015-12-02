@@ -10,7 +10,7 @@ public class GraphSolutionTest {
     public void test1() {
         System.setIn(mockInputStreamFromFile(
             "/Users/anthony/Documents/workspace/test/tst/jp/co/indeed/construction/test1.in"));
-        GraphSolution.main(new String[] {});
+        GraphSolution.main(null);
         // YES 1
         // NO
         // YES 3
@@ -21,7 +21,7 @@ public class GraphSolutionTest {
     public void test2() {
         System.setIn(mockInputStreamFromFile(
             "/Users/anthony/Documents/workspace/test/tst/jp/co/indeed/construction/test2.in"));
-        GraphSolution.main(new String[] {});
+        GraphSolution.main(null);
         // YES 2
         // YES 1
         // NO
@@ -32,7 +32,7 @@ public class GraphSolutionTest {
     public void test3() {
         System.setIn(mockInputStreamFromFile(
             "/Users/anthony/Documents/workspace/test/tst/jp/co/indeed/construction/test3.in"));
-        GraphSolution.main(new String[] {});
+        GraphSolution.main(null);
         // YES 4
         // YES 11
         // YES 8
