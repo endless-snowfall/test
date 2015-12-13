@@ -1,4 +1,4 @@
-package com.netflix;
+package com.netflix.boarding.passes;
 
 import java.util.HashMap;
 import java.util.LinkedList;

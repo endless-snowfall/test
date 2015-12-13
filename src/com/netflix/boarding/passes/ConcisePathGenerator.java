@@ -1,4 +1,4 @@
-package com.netflix;
+package com.netflix.boarding.passes;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.google.common.collect.Iterables;
-import com.netflix.PathGenerator.BoardingPass;
+import com.netflix.boarding.passes.PathGenerator.BoardingPass;
 
 public class ConcisePathGenerator {
 

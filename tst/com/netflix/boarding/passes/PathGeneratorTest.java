@@ -1,4 +1,4 @@
-package com.netflix;
+package com.netflix.boarding.passes;
 
 import static org.junit.Assert.*;
 
@@ -8,7 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
-import com.netflix.PathGenerator.BoardingPass;
+import com.netflix.boarding.passes.ConcisePathGenerator;
+import com.netflix.boarding.passes.PathGenerator.BoardingPass;
 
 import common.TestBase;
 
