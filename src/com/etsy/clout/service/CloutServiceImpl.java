@@ -12,17 +12,17 @@ public class CloutServiceImpl implements CloutService {
     private Map<Person, Integer> clout = new HashMap<>();
 
     @Override
-    public void follows(Person follower, Person followed) {
-        if (isAlreadyFollowing(follower, followed)) {
+    public void follows(Person source, Person target) {
+        if (isAlreadyFollowing(source, target)) {
             return;
         }
 
-        int followerClout = clout.computeIfAbsent(follower, person -> 0);
-        subtractFollowerClout(follower, followerClout);
+        int sourceClout = clout.computeIfAbsent(source, person -> 0);
+        subtractFollowerClout(source, sourceClout);
 
-        clout.computeIfAbsent(followed, person -> 0);
-        follows.put(follower, followed);
-        addFollowerClout(followed, followerClout);
+        clout.computeIfAbsent(target, person -> 0);
+        follows.put(source, target);
+        addFollowerClout(target, sourceClout);
     }
 
     @Override
@@ -35,29 +35,29 @@ public class CloutServiceImpl implements CloutService {
         return clout;
     }
 
-    private boolean isAlreadyFollowing(Person follower, Person followed) {
-        return follows.containsKey(follower) && follows.get(follower).equals(followed);
+    private boolean isAlreadyFollowing(Person source, Person target) {
+        return follows.containsKey(source) && follows.get(source).equals(target);
     }
 
-    private void subtractFollowerClout(Person follower, int followerClout) {
-        Person person = follows.get(follower);
+    private void subtractFollowerClout(Person source, int sourceClout) {
+        Person person = follows.get(source);
 
         // subtract from previously followed and all "ancestors"
         while (person != null) {
             int oldClout = clout.get(person);
-            clout.put(person, oldClout - (followerClout + 1));
-            System.out.println(String.format("subtract: %s, %s", person.getName(), followerClout + 1));
+            clout.put(person, oldClout - (sourceClout + 1));
+            System.out.println(String.format("subtract: %s, %s", person.getName(), sourceClout + 1));
             person = follows.get(person);
         }
     }
 
-    private void addFollowerClout(Person followed, int followerClout) {
+    private void addFollowerClout(Person target, int sourceClout) {
         // add to all of newly followed and all "ancestors"
-        while (followed != null) {
-            int oldClout = clout.get(followed);
-            clout.put(followed, oldClout + (followerClout + 1));
-            System.out.println(String.format("add: %s, %s", followed.getName(), followerClout + 1));
-            followed = follows.get(followed);
+        while (target != null) {
+            int oldClout = clout.get(target);
+            clout.put(target, oldClout + (sourceClout + 1));
+            System.out.println(String.format("add: %s, %s", target.getName(), sourceClout + 1));
+            target = follows.get(target);
         }
     }
 }
