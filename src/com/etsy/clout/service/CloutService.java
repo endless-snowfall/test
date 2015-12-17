@@ -7,7 +7,7 @@ import com.etsy.clout.concepts.Person;
 
 public interface CloutService {
 
-    void follows(Person follower, Person followed);
+    void follows(Person source, Person target);
 
     Optional<Integer> getClout(Person person);
 

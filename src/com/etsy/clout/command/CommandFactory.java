@@ -24,11 +24,11 @@ public class CommandFactory {
     }
 
     private FollowCommand buildFollowCommand(String input) {
-        int followsIndex = input.indexOf(FOLLOWS);
+        int index = input.indexOf(FOLLOWS);
         return FollowCommand.of(
             cloutService,
-            Person.of(input.substring(0, followsIndex)),
-            Person.of(input.substring(followsIndex + FOLLOWS.length())));
+            Person.of(input.substring(0, index)),
+            Person.of(input.substring(index + FOLLOWS.length())));
     }
 
     private CloutCommand buildCloutCommand(String input) {

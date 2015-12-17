@@ -11,17 +11,17 @@ import lombok.Value;
 public class FollowCommand implements Command {
 
     private CloutService cloutService;
-    private Person follower;
-    private Person followed;
+    private Person source;
+    private Person target;
 
     @Override
     public void execute() {
-        if (follower.equals(followed)) {
+        if (source.equals(target)) {
             System.out.println("Interesting, but that doesn't make sense.");
             return;
         }
 
-        cloutService.follows(follower, followed);
+        cloutService.follows(source, target);
         System.out.println("OK!");
     }
 }

@@ -30,8 +30,8 @@ public class CommandFactoryTest {
         FollowCommand followCommand = (FollowCommand) command;
 
         assertEquals(cloutService, followCommand.getCloutService());
-        assertEquals(Person.of("Neymar"), followCommand.getFollower());
-        assertEquals(Person.of("Xavi"), followCommand.getFollowed());
+        assertEquals(Person.of("Neymar"), followCommand.getSource());
+        assertEquals(Person.of("Xavi"), followCommand.getTarget());
     }
 
     @Test
@@ -42,9 +42,9 @@ public class CommandFactoryTest {
         FollowCommand followCommand = (FollowCommand) command;
 
         assertEquals(cloutService, followCommand.getCloutService());
-        assertEquals(Person.of("Messi"), followCommand.getFollower());
-        assertEquals(Person.of("Messi"), followCommand.getFollowed());
-        assertEquals(followCommand.getFollower(), followCommand.getFollowed());
+        assertEquals(Person.of("Messi"), followCommand.getSource());
+        assertEquals(Person.of("Messi"), followCommand.getTarget());
+        assertEquals(followCommand.getSource(), followCommand.getTarget());
     }
 
     @Test
