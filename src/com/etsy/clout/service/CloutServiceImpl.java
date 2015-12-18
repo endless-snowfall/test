@@ -8,7 +8,7 @@ import com.etsy.clout.concepts.Person;
 public class CloutServiceImpl implements CloutService {
 
     private Map<Person, Person> follows = new HashMap<>();
-    private Map<Person, Integer> clout = new HashMap<>();
+    private Map<Person, Integer> nonCycleClout = new HashMap<>();
 
     @Override
     public void follows(Person source, Person target) {
@@ -16,22 +16,22 @@ public class CloutServiceImpl implements CloutService {
             return;
         }
 
-        int sourceClout = clout.computeIfAbsent(source, person -> 0);
+        int sourceClout = nonCycleClout.computeIfAbsent(source, person -> 0);
         subtractFollowerClout(source, sourceClout);
 
-        clout.computeIfAbsent(target, person -> 0);
+        nonCycleClout.computeIfAbsent(target, person -> 0);
         follows.put(source, target);
         addFollowerClout(target, sourceClout);
     }
 
     @Override
     public int getClout(Person person) {
-        return clout.getOrDefault(person, 0);
+        return nonCycleClout.getOrDefault(person, 0);
     }
 
     @Override
     public Map<Person, Integer> getAllClout() {
-        return clout;
+        return nonCycleClout;
     }
 
     private boolean isAlreadyFollowing(Person source, Person target) {
@@ -43,10 +43,8 @@ public class CloutServiceImpl implements CloutService {
 
         // subtract from previously followed and all "ancestors"
         while (person != null) {
-            int oldClout = clout.get(person);
-            clout.put(person, oldClout - (sourceClout + 1));
-            // TODO
-            System.out.println(String.format("subtract: %s, %s", person.getName(), sourceClout + 1));
+            int oldClout = nonCycleClout.get(person);
+            nonCycleClout.put(person, oldClout - (sourceClout + 1));
             person = follows.get(person);
         }
     }
@@ -54,10 +52,8 @@ public class CloutServiceImpl implements CloutService {
     private void addFollowerClout(Person target, int sourceClout) {
         // add to all of newly followed and all "ancestors"
         while (target != null) {
-            int oldClout = clout.get(target);
-            clout.put(target, oldClout + (sourceClout + 1));
-            // TODO
-            System.out.println(String.format("add: %s, %s", target.getName(), sourceClout + 1));
+            int oldClout = nonCycleClout.get(target);
+            nonCycleClout.put(target, oldClout + (sourceClout + 1));
             target = follows.get(target);
         }
     }
