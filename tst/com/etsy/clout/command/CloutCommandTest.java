@@ -35,7 +35,7 @@ public class CloutCommandTest {
 
     @Test
     public void unknownPerson() {
-        when(cloutService.getClout(ANTHONY)).thenReturn(Optional.empty());
+        when(cloutService.getClout(ANTHONY)).thenReturn(0);
         command = CloutCommand.of(cloutService, Optional.of(ANTHONY));
 
         assertEquals(new Response("Anthony has no followers."), command.execute());
@@ -44,7 +44,7 @@ public class CloutCommandTest {
 
     @Test
     public void knownPerson_OneClout() {
-        when(cloutService.getClout(ANTHONY)).thenReturn(Optional.of(1));
+        when(cloutService.getClout(ANTHONY)).thenReturn(1);
         command = CloutCommand.of(cloutService, Optional.of(ANTHONY));
 
         assertEquals(new Response("Anthony has 1 follower."), command.execute());
@@ -53,7 +53,7 @@ public class CloutCommandTest {
 
     @Test
     public void knownPerson() {
-        when(cloutService.getClout(ANTHONY)).thenReturn(Optional.of(123));
+        when(cloutService.getClout(ANTHONY)).thenReturn(123);
         command = CloutCommand.of(cloutService, Optional.of(ANTHONY));
 
         assertEquals(new Response("Anthony has 123 followers."), command.execute());

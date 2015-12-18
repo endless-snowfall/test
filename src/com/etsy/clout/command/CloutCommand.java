@@ -21,8 +21,7 @@ public class CloutCommand implements Command {
     public Response execute() {
         if (maybePerson.isPresent()) {
             Person person = maybePerson.get();
-            Optional<Integer> maybeClout = cloutService.getClout(person);
-            return new Response(buildResponse(person, maybeClout.isPresent() ? maybeClout.get() : 0));
+            return new Response(buildResponse(person, cloutService.getClout(person)));
         }
 
         return Response.of(cloutService.getAllClout().entrySet().stream()

@@ -2,7 +2,6 @@ package com.etsy.clout.service;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import com.etsy.clout.concepts.Person;
 
@@ -26,8 +25,8 @@ public class CloutServiceImpl implements CloutService {
     }
 
     @Override
-    public Optional<Integer> getClout(Person person) {
-        return Optional.ofNullable(clout.get(person));
+    public int getClout(Person person) {
+        return clout.getOrDefault(person, 0);
     }
 
     @Override
@@ -46,6 +45,7 @@ public class CloutServiceImpl implements CloutService {
         while (person != null) {
             int oldClout = clout.get(person);
             clout.put(person, oldClout - (sourceClout + 1));
+            // TODO
             System.out.println(String.format("subtract: %s, %s", person.getName(), sourceClout + 1));
             person = follows.get(person);
         }
@@ -56,6 +56,7 @@ public class CloutServiceImpl implements CloutService {
         while (target != null) {
             int oldClout = clout.get(target);
             clout.put(target, oldClout + (sourceClout + 1));
+            // TODO
             System.out.println(String.format("add: %s, %s", target.getName(), sourceClout + 1));
             target = follows.get(target);
         }
