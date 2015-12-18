@@ -8,11 +8,8 @@ import lombok.AllArgsConstructor;
 public class UserInterfaceFactory {
 
     public UserInterface buildUserInterface(String[] args, CommandFactory commandFactory) {
-        if (args.length != 2) {
-            return new CommandLineInterface(commandFactory);
-        }
-
-        // TODO
-        return null;
+        return (args.length != 2)
+            ? new CommandLineInterface(commandFactory)
+            : new InputOutputFileInterface(commandFactory, args[0], args[1]);
     }
 }

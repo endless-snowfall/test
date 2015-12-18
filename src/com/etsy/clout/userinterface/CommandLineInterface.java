@@ -2,7 +2,6 @@ package com.etsy.clout.userinterface;
 
 import java.util.Scanner;
 
-import com.etsy.clout.command.Command;
 import com.etsy.clout.command.CommandFactory;
 
 import lombok.AllArgsConstructor;
@@ -20,8 +19,10 @@ public class CommandLineInterface implements UserInterface {
             while (true) {
                 System.out.print("> ");
                 String input = scanner.nextLine();
-                Command command = commandFactory.buildCommand(input);
-                command.execute().getResponses().forEach(response -> System.out.println(response));
+                commandFactory.buildCommand(input)
+                    .execute()
+                    .getResponses()
+                    .forEach(response -> System.out.println(response));
             }
         }
     }
