@@ -1,4 +1,4 @@
-package com.etsy.clout;
+package com.etsy.clout.common;
 
 import com.etsy.clout.concepts.Person;
 

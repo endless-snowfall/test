@@ -1,6 +1,6 @@
 package com.etsy.clout.command;
 
-import static com.etsy.clout.TestUtils.People.*;
+import static com.etsy.clout.common.TestUtils.People.*;
 import static org.junit.Assert.*;
 
 import java.util.Optional;
