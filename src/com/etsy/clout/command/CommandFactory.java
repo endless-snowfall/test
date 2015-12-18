@@ -12,10 +12,17 @@ public class CommandFactory {
 
     private static final String FOLLOWS = " follows ";
     private static final String CLOUT = "clout";
+    private static final String EXIT = "exit";
+
+    private static final Command EXIT_COMMAND = new ExitCommand();
 
     private CloutService cloutService;
 
     public Command buildCommand(String input) {
+        if (EXIT.equals(input)) {
+            return EXIT_COMMAND;
+        }
+
         if (input.contains(FOLLOWS)) {
             return buildFollowCommand(input);
         }
