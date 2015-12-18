@@ -1,18 +1,12 @@
 package com.etsy.clout.service;
 
+import static com.etsy.clout.TestUtils.People.*;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.etsy.clout.concepts.Person;
-
 public class CloutServiceImplTest {
-
-    private static final Person ANTHONY = Person.of("Anthony");
-    private static final Person MIKE = Person.of("Mike");
-    private static final Person BOB = Person.of("Bob");
-    private static final Person DAVE = Person.of("Dave");
 
     private CloutService cloutService;
 

@@ -1,5 +1,6 @@
 package com.etsy.clout.command;
 
+import static com.etsy.clout.TestUtils.People.*;
 import static com.etsy.clout.command.FollowCommand.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -10,14 +11,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.etsy.clout.concepts.Person;
 import com.etsy.clout.service.CloutService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FollowCommandTest {
-
-    private static final Person ANTHONY = Person.of("Anthony");
-    private static final Person MIKE = Person.of("Mike");
 
     @Mock private CloutService cloutService;
 

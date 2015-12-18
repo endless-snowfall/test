@@ -1,5 +1,6 @@
 package com.etsy.clout.command;
 
+import static com.etsy.clout.TestUtils.People.*;
 import static org.junit.Assert.*;
 
 import java.util.Optional;
@@ -30,8 +31,8 @@ public class CommandFactoryTest {
         FollowCommand followCommand = (FollowCommand) command;
 
         assertEquals(cloutService, followCommand.getCloutService());
-        assertEquals(Person.of("Neymar"), followCommand.getSource());
-        assertEquals(Person.of("Xavi"), followCommand.getTarget());
+        assertEquals(NEYMAR, followCommand.getSource());
+        assertEquals(XAVI, followCommand.getTarget());
     }
 
     @Test
@@ -42,8 +43,8 @@ public class CommandFactoryTest {
         FollowCommand followCommand = (FollowCommand) command;
 
         assertEquals(cloutService, followCommand.getCloutService());
-        assertEquals(Person.of("Messi"), followCommand.getSource());
-        assertEquals(Person.of("Messi"), followCommand.getTarget());
+        assertEquals(MESSI, followCommand.getSource());
+        assertEquals(MESSI, followCommand.getTarget());
         assertEquals(followCommand.getSource(), followCommand.getTarget());
     }
 
@@ -57,7 +58,7 @@ public class CommandFactoryTest {
         assertEquals(cloutService, cloutCommand.getCloutService());
         Optional<Person> maybePerson = cloutCommand.getMaybePerson();
         assertTrue(maybePerson.isPresent());
-        assertEquals(Person.of("Messi"), maybePerson.get());
+        assertEquals(MESSI, maybePerson.get());
     }
 
     @Test
