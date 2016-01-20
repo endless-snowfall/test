@@ -1,6 +1,6 @@
-package com.snapchat.parser;
+package com.temp.parser;
 
-public class WhileLoopParser {
+public class ForLoopParser {
 
     private static final char DUMMY_CHAR = 'x';
 
@@ -12,36 +12,29 @@ public class WhileLoopParser {
         StringBuilder result = new StringBuilder();
         boolean printComma = false;
         boolean printQuotes = false;
-        int readIndex = 0;
-        int lastIndex = input.length() - 1;
 
-        while (readIndex < input.length()) {
-            char current = input.charAt(readIndex);
+        for (int i = 0; i < input.length(); i++) {
+            char current = input.charAt(i);
+            char next = (i == input.length() - 1) ? DUMMY_CHAR : input.charAt(i + 1);
 
-            if (printQuotes && current == '\"') {
-                char next = (readIndex == lastIndex) ? DUMMY_CHAR : input.charAt(readIndex + 1);
-                if (next == '\"') {
-                    result.append(current);
-                    readIndex += 2;
-                    continue;
-                }
+            if (printQuotes && current == '\"' && next == '\"') {
+                result.append(current);
+                i++;
+                continue;
             }
 
             if (current == '\"') {
                 printComma = !printComma;
                 printQuotes = !printQuotes;
-                readIndex++;
                 continue;
             }
 
             if (current == ',' && !printComma) {
                 result.append('|');
-                readIndex++;
                 continue;
             }
 
             result.append(current);
-            readIndex++;
         }
 
         return result.toString();
