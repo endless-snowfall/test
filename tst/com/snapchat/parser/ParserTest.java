@@ -1,11 +1,11 @@
-package com.temp.parser;
+package com.snapchat.parser;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.temp.parser.WhileLoopParser;
+import com.snapchat.parser.WhileLoopParser;
 
 public class ParserTest {
 
