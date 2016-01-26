@@ -1,10 +1,13 @@
 package com.snapchat.onsite;
 
+import static java.util.stream.Collectors.*;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import com.google.common.collect.Sets;
 
@@ -60,15 +63,11 @@ public class ContactGrouper {
     }
 
     public Set<Set<Contact>> groupContacts() {
-        for (Contact contact : contacts) {
-            Set<Group> groupsToMerge = new HashSet<>();
-            for (Group group : groups) {
-                if (group.contains(contact)) {
-                    groupsToMerge.add(group);
-                }
-            }
-            merge(groupsToMerge);
-        }
+        contacts.forEach(contact -> {
+            merge(groups.stream()
+                .filter(group -> group.contains(contact))
+                .collect(toSet()));
+        });
         return buildResult();
     }
 
@@ -77,12 +76,15 @@ public class ContactGrouper {
             return;
         }
 
-        Set<String> names = new HashSet<>();
-        Set<Integer> phoneNumbers = new HashSet<>();
-        for (Group group : groupsToMerge) {
-            names.addAll(group.getNames());
-            phoneNumbers.addAll(group.getPhoneNumbers());
-        }
+        Set<String> names = groupsToMerge.stream()
+            .map(Group::getNames)
+            .flatMap(Collection::stream)
+            .collect(toSet());
+
+        Set<Integer> phoneNumbers = groupsToMerge.stream()
+            .map(Group::getPhoneNumbers)
+            .flatMap(Collection::stream)
+            .collect(toSet());
 
         groups.removeAll(groupsToMerge);
         groups.add(new Group(names, phoneNumbers));
@@ -90,16 +92,19 @@ public class ContactGrouper {
 
     private Set<Set<Contact>> buildResult() {
         Set<Set<Contact>> result = new HashSet<>();
+
         for (Group group : groups) {
-            Set<Contact> subresult = new HashSet<>();
-            for (String name : group.getNames()) {
-                subresult.addAll(nameLookup.get(name));
-            }
-            for (int phoneNumber : group.getPhoneNumbers()) {
-                subresult.addAll(phoneNumberLookup.get(phoneNumber));
-            }
-            result.add(subresult);
+            Stream<Contact> nameContacts = group.getNames().stream()
+                .map(nameLookup::get)
+                .flatMap(Collection::stream);
+
+            Stream<Contact> phoneNumberContacts = group.getPhoneNumbers().stream()
+                .map(phoneNumberLookup::get)
+                .flatMap(Collection::stream);
+
+            result.add(Stream.concat(nameContacts, phoneNumberContacts).collect(toSet()));
         }
+
         return result;
     }
 }
